@@ -1,0 +1,22 @@
+
+
+Importing file: C:\Users\Sreenivas Bandaru\Documents\WorkSpace_for_IIB\SOAP(Simple Object Access Protocal)\Calculator.wsdl
+
+The WSDL import will proceed with bindings CalculatorSOAP.
+Creating wsdl schema document for file:///C:/Users/Sreenivas Bandaru/Documents/WorkSpace_for_IIB/SOAP(Simple Object Access Protocal)/Calculator.wsdl.
+Parsing wsdl binding {http://www.example.org/Calculator/}CalculatorSOAP.
+Parsing wsdl binding input NewOperation.
+Parsing wsdl binding output NewOperation.
+Processing doc style for operation NewOperation.
+Populating WSDL schema Calculator.xsd.
+Creating file Calculator.xsd in the workspace.
+Creating file Calculator_InlineSchema1.xsd in the workspace.
+Copying source WSDL Calculator.wsdl to Calculator.wsdl.
+
+Elapsed time processing this message definition file: 0.66 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+
