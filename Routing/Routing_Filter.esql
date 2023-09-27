@@ -1,0 +1,22 @@
+
+
+CREATE FILTER MODULE Routing_Filter
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE route REFERENCE TO Root.XMLNSC;
+		
+		if route.Company = 'eidiko' THEN
+			RETURN TRUE;
+			
+		ELSEIF route.Company = 'ibm' THEN
+			RETURN false;
+			
+		ELSE
+			
+			RETURN UNKNOWN;
+			END  IF;		
+		
+		
+	END;
+
+END MODULE;
