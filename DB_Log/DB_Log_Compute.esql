@@ -1,0 +1,41 @@
+
+
+CREATE COMPUTE MODULE DB_Log_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE inRef REFERENCE TO InputRoot.XMLNSC.emp;
+		SET OutputRoot.JSON.Data.emp.name = inRef.name;
+		SET OutputRoot.JSON.Data.emp.id =  inRef.id;
+		
+		DECLARE appname,msgflw,chReq CHARACTER;
+		DECLARE time_stamp TIMESTAMP;
+		SET appname =ApplicationLabel;
+		SET msgflw = MessageFlowLabel;
+		SET time_stamp =CURRENT_TIMESTAMP;
+		DECLARE blobdata BLOB;
+		SET blobdata = ASBITSTREAM(InputRoot.XMLNSC ENCODING 546 CCSID 1208);
+		SET chReq = CAST(blobdata AS CHARACTER CCSID 1208 );
+		
+		CALL AppDetails(appname,msgflw,chReq,time_stamp);
+	
+	END;
+	CREATE PROCEDURE AppDetails (IN appname CHARACTER,IN msgflow_name CHARACTER, IN channel_req CHARACTER,IN time_stamp TIMESTAMP )
+	LANGUAGE DATABASE
+	EXTERNAL NAME "APPLICATIONDETAILS_PROC";
+END MODULE;
