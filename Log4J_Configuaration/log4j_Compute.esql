@@ -1,0 +1,33 @@
+DECLARE config EXTERNAL CHARACTER ;
+DECLARE var BOOLEAN;
+
+CREATE COMPUTE MODULE log4j_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		 	 CALL initLog4j(config)INTO var;
+   	  CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+   	 DECLARE input_req, output_res CHARACTER ;
+   	 
+SET input_req = CAST(ASBITSTREAM(InputRoot.XMLNSC  CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding)AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId);
+SET output_res = CAST(ASBITSTREAM(OutputRoot.JSON.Data  CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding)AS CHARACTER CCSID InputRoot.Properties.CodedCharSetId);
+   	 
+   	 CALL writeToLogFile(MessageFlowLabel, 'sree', 'INFO',ApplicationLabel||input_req) INTO var;
+   	 CALL writeToLogFile(MessageFlowLabel, 'sree', 'INFO',ApplicationLabel||output_res) INTO var;
+    END;
+END MODULE;
+
+CREATE FUNCTION writeToLogFile( IN COMPONENT_NAME CHARACTER,IN LOGGER_NAME CHARACTER, IN LEVEL CHARACTER, IN TEXT CHARACTER )
+RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.log";
+
+CREATE FUNCTION initLog4j( IN CONFIG_FILE_NAME CHARACTER )
+RETURNS BOOLEAN
+LANGUAGE JAVA
+EXTERNAL NAME "com.ibm.broker.IAM3.Log4jNode.initLog4j";
+
