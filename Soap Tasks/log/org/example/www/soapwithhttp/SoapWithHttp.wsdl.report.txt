@@ -1,0 +1,22 @@
+
+
+Importing file: C:\Users\Sreenivas Bandaru\Documents\WorkSpace_for_IIB\Soap Tasks\SoapWithHttp.wsdl
+
+The WSDL import will proceed with bindings SoapWithHttpSOAP.
+Creating wsdl schema document for file:///C:/Users/Sreenivas Bandaru/Documents/WorkSpace_for_IIB/Soap Tasks/SoapWithHttp.wsdl.
+Parsing wsdl binding {http://www.example.org/SoapWithHttp/}SoapWithHttpSOAP.
+Parsing wsdl binding input SoapWithHttp.
+Parsing wsdl binding output SoapWithHttp.
+Processing doc style for operation SoapWithHttp.
+Populating WSDL schema SoapWithHttp.xsd.
+Creating file SoapWithHttp.xsd in the workspace.
+Creating file SoapWithHttp_InlineSchema1.xsd in the workspace.
+Copying source WSDL SoapWithHttp.wsdl to SoapWithHttp.wsdl.
+
+Elapsed time processing this message definition file: 0.652 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+
