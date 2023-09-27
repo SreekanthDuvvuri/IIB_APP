@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:csv="http://www.ibm.com/dfdl/CommaSeparatedFormat" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:ibmDfdlExtn="http://www.ibm.com/dfdl/extensions" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions">
+
+
+    <xsd:import namespace="http://www.ibm.com/dfdl/CommaSeparatedFormat" schemaLocation="IBMdefined/CommaSeparatedFormat.xsd"/>
+    <xsd:annotation>
+		<xsd:appinfo source="http://www.ogf.org/dfdl/">
+			<dfdl:format documentFinalTerminatorCanBeMissing="yes" encoding="{$dfdl:encoding}" escapeSchemeRef="csv:CSVEscapeScheme" ref="csv:CommaSeparatedFormat"/>
+		</xsd:appinfo>
+	</xsd:annotation>
+
+
+	<xsd:element ibmSchExtn:docRoot="true" name="Delimited">
+		<xsd:complexType>
+			<xsd:sequence dfdl:separator="">
+				<xsd:element dfdl:occursCountKind="implicit" dfdl:terminator="" maxOccurs="unbounded" name="record">
+					<xsd:complexType>
+						<xsd:sequence dfdl:separator="" dfdl:separatorSuppressionPolicy="trailingEmpty">
+							<xsd:element dfdl:initiator="" dfdl:terminator="@" ibmDfdlExtn:sampleValue="value1" name="fname" type="xsd:string"/>
+							<xsd:element dfdl:initiator="" dfdl:terminator="$" ibmDfdlExtn:sampleValue="value2" name="lname" type="xsd:string"/>
+							<xsd:element dfdl:initiator="" dfdl:length="10" dfdl:lengthKind="explicit" dfdl:outputNewLine="%CR;%LF;" ibmDfdlExtn:sampleValue="value3" name="initial">
+                <xsd:simpleType>
+                  <xsd:restriction base="xsd:string">
+                    <xsd:minLength value="10"/>
+                    <xsd:maxLength value="10"/>
+                  </xsd:restriction>
+                </xsd:simpleType>
+              </xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>				
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+
+</xsd:schema>
