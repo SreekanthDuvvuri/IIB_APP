@@ -1,0 +1,32 @@
+
+
+CREATE COMPUTE MODULE putUpdate_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE ref REFERENCE TO InputRoot.JSON.Data.emp;
+		DECLARE a,b CHARACTER;
+		SET a=ref.name;
+		SET b=ref.id;
+		DECLARE mapping CHARACTER;
+		update Database.mapping AS m set name=a where m.id=b;
+		
+		SET OutputRoot.JSON.Data.emp='updated successfully';
+		
+	END;
+END MODULE;
