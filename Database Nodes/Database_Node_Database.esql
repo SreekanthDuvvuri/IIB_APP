@@ -1,0 +1,21 @@
+
+
+CREATE DATABASE MODULE Database_Node_Database
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+			
+		DECLARE ref REFERENCE TO Root.XMLNSC.emp;
+		DECLARE a CHARACTER;
+		DECLARE b CHARACTER;
+		
+		SET a = ref.name;
+		SET b = ref.id;
+		
+		INSERT INTO Database.mapping(name,id) VALUES (a,b);
+		
+ RETURN TRUE;
+		
+		
+	END;
+
+END MODULE;

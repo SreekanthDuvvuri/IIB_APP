@@ -1,0 +1,17 @@
+
+
+Importing file: C:\Users\Sreenivas Bandaru\Documents\WorkSpace_for_IIB\Project1\xe.dbm
+
+
+Processing schema SYSTEM.
+Creating complex type for table MAPPING.
+Creating global element for table MAPPING.
+Creating file \Database Nodes\xe\system\xe.xsd in the workspace.
+
+Elapsed time processing this message definition file: 2.982 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+
