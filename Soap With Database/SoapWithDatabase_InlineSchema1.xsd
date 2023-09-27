@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/SoapWithDatabase/" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/SoapWithDatabase/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <xsd:element ibmSchExtn:docRoot="true" name="SoapWithDatabase">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="id" type="xsd:string"/>
+          	<xsd:element name="name" type="xsd:string"/>
+          	<xsd:element name="technology" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element ibmSchExtn:docRoot="true" name="SoapWithDatabaseResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+          	<xsd:element name="id" type="xsd:string"/>
+          	<xsd:element name="name" type="xsd:string"/>
+          	<xsd:element name="technology" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>

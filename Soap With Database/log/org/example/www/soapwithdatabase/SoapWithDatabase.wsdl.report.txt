@@ -1,0 +1,22 @@
+
+
+Importing file: C:\Users\Sreenivas Bandaru\Documents\WorkSpace_for_IIB\Soap With Database\SoapWithDatabase.wsdl
+
+The WSDL import will proceed with bindings SoapWithDatabaseSOAP.
+Creating wsdl schema document for file:///C:/Users/Sreenivas Bandaru/Documents/WorkSpace_for_IIB/Soap With Database/SoapWithDatabase.wsdl.
+Parsing wsdl binding {http://www.example.org/SoapWithDatabase/}SoapWithDatabaseSOAP.
+Parsing wsdl binding input SoapWithDatabase.
+Parsing wsdl binding output SoapWithDatabase.
+Processing doc style for operation SoapWithDatabase.
+Populating WSDL schema SoapWithDatabase.xsd.
+Creating file SoapWithDatabase.xsd in the workspace.
+Creating file SoapWithDatabase_InlineSchema1.xsd in the workspace.
+Copying source WSDL SoapWithDatabase.wsdl to SoapWithDatabase.wsdl.
+
+Elapsed time processing this message definition file: 0.676 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+
