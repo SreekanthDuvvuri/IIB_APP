@@ -1,0 +1,49 @@
+
+
+CREATE COMPUTE MODULE TaskOnStringManupulations_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		
+		
+		DECLARE test REFERENCE TO InputRoot.XMLNSC.result;
+--		DECLARE test1 DECIMAL;
+--		 set test1=CAST(test as DECIMAL); 
+--		 DECLARE test2 DECIMAL;
+--		 
+--		SET test2=ROUND(test1,3);        -- here i will give input as 56.123443 and get output as 56.123 means  after point 3 digits i will get.
+--        
+--        SET OutputRoot.XMLNSC.result = test2;
+        
+        DECLARE test1 DECIMAL;
+		 set test1=CAST(test as DECIMAL);
+		 DECLARE test2 INTEGER;
+		 
+		--SET test2=ROUND(test1,2)+0.01;
+		--SET test2=(test1,0);  
+		--SET test2=ROUND(test1,2 MODE ROUND_UP);
+		
+		--SET test2 = FLOOR(test1); ---using this floor method we can remove decimal places.
+		SET test2 =ROUND(test1,2 MODE ROUND_UP);
+        
+        SET OutputRoot.XMLNSC.result = test2;   --here 56.148  output is 56.15 means second digit will increase
+	END; 
+END MODULE;
+
+
