@@ -1,0 +1,31 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Rest_With_Open_Api",
+    "version": "1.0.0",
+    "description": "Rest_With_Open_Api"
+  },
+  "servers": [
+    {
+      "url": "/rest_with_open_api/v1"
+    }
+  ],
+  "paths": {
+    "/Get": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        }
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "success"
+          }
+        }
+      }
+    }
+  }
+}
