@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="HttpWithSoap" targetNamespace="http://www.example.org/HttpWithSoap/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/HttpWithSoap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <generatedXSD location="HttpWithSoap_InlineSchema1.xsd"/>
+        <binding hasEncoding="false" imported="true" name="HttpWithSoapSOAP" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+  <wsdl:types>
+    
+          <xsd:schema targetNamespace="http://www.example.org/HttpWithSoap/" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions">
+<xsd:include schemaLocation="HttpWithSoap_InlineSchema1.xsd"/>
+    </xsd:schema>
+    </wsdl:types>
+  <wsdl:message name="HttpWithSoapRequest">
+    <wsdl:part element="tns:HttpWithSoap" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="HttpWithSoapResponse">
+    <wsdl:part element="tns:HttpWithSoapResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="HttpWithSoap">
+    <wsdl:operation name="HttpWithSoap">
+      <wsdl:input message="tns:HttpWithSoapRequest"/>
+      <wsdl:output message="tns:HttpWithSoapResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HttpWithSoapSOAP" type="tns:HttpWithSoap">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="HttpWithSoap">
+      <soap:operation soapAction="http://www.example.org/HttpWithSoap/HttpWithSoap"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HttpWithSoap">
+    <wsdl:port binding="tns:HttpWithSoapSOAP" name="HttpWithSoapSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

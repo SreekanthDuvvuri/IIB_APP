@@ -1,0 +1,41 @@
+
+
+CREATE COMPUTE MODULE group_node_consumer_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+--		DECLARE inRef REFERENCE TO InputRoot.JSON.Data.CustomerDetailsVerify.Item[>];
+--	 WHILE LASTMOVE(inRef) DO
+
+--			IF FIELDNAME(inRef.[>])='PAN_Number_Verify' THEN
+--				SET OutputRoot.JSON.Data.PancardNo = inRef.PAN_Number_Verify.Number;
+--				PROPAGATE TO TERMINAL 'out1';
+--			ELSEIF FIELDNAME(inRef.[>])='Aadhar_Number_Verify' THEN
+--				SET OutputRoot.JSON.Data.AadharNo = inRef.Aadhar_Number_Verify.Number;
+--				PROPAGATE TO TERMINAL 'out';
+--			END IF;	
+--			MOVE inRef NEXTSIBLING;
+--		END WHILE;
+
+		SET OutputRoot.JSON.Data.customer.address = InputRoot.XMLNSC.customer.address.custid;
+		PROPAGATE TO TERMINAL 'out';
+
+		SET OutputRoot.JSON.Data.customer.account = InputRoot.XMLNSC.customer.account.custid;
+		PROPAGATE TO TERMINAL 'out1';
+	END;
+END MODULE;

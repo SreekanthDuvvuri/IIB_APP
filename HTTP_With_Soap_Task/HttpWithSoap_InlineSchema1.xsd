@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/HttpWithSoap/" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.example.org/HttpWithSoap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+      <xsd:element ibmSchExtn:docRoot="true" name="HttpWithSoap">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element ibmSchExtn:docRoot="true" name="HttpWithSoapResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ename" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
