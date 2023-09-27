@@ -1,0 +1,19 @@
+ DECLARE messageCount SHARED INTEGER 0;
+
+CREATE COMPUTE MODULE EndOfDataTerminal_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET messageCount = messageCount + 1;
+            -- the third message is the last received so propagate the End of Data message 
+            -- to the Finish File terminal
+		IF messageCount = 3 THEN
+			SET messageCount = 0;
+			RETURN TRUE;		
+	      ELSE
+		    RETURN FALSE;
+	      END IF;
+
+		END;
+END MODULE;
+
+

@@ -1,0 +1,52 @@
+CREATE COMPUTE MODULE wholeLength_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	
+    BEGIN
+        -- CALL CopyMessageHeaders();
+        CALL CopyEntireMessage();
+        RETURN TRUE;
+    END;
+
+    CREATE PROCEDURE CopyMessageHeaders() BEGIN
+        DECLARE I INTEGER 1;
+        DECLARE J INTEGER;
+        SET J = CARDINALITY(InputRoot.*[]);
+        WHILE I < J DO
+            SET OutputRoot.*[I] = InputRoot.*[I];
+            SET I = I + 1;
+        END WHILE;
+    END;
+
+    CREATE PROCEDURE CopyEntireMessage() BEGIN
+    	
+ 
+            DECLARE ref REFERENCE TO InputRoot.XMLNSC.breakfast_menu.food;
+            DECLARE i INTEGER 1;
+            
+            WHILE LASTMOVE(ref) DO
+            	
+            	DECLARE dataRef,breakfastRef,foodRef REFERENCE TO OutputRoot.JSON;
+            	
+            	CREATE LASTCHILD OF OutputRoot.JSON AS dataRef NAME 'Data';
+            	CREATE LASTCHILD OF dataRef AS breakfastRef NAME 'BREAKFAST_MENU';
+            	CREATE LASTCHILD OF breakfastRef AS foodRef NAME 'FOOD';
+            	
+            	SET foodRef.NAME = ref.name;
+            	SET foodRef.PRICE = ref.price;
+            	SET foodRef.DESCRIPTION = ref.description;
+            	SET foodRef.CALORIES = ref.calories;
+            	
+            	SET OutputLocalEnvironment.Destination.File.Name = 'file' || CAST(i AS CHARACTER) || '.txt';
+--            	SET OutputRoot.JSON.Data.BREAKFAST_MENU.FOOD[i].NAME=ref.name;
+--            	SET OutputRoot.JSON.Data.BREAKFAST_MENU.FOOD[i].PRICE=ref.price;
+--            	SET OutputRoot.JSON.Data.BREAKFAST_MENU.FOOD[i].DESCRIPTION=ref.description;
+--            	SET OutputRoot.JSON.Data.BREAKFAST_MENU.FOOD[i].CALORIES=ref.calories;
+           	
+            	SET i =i+1;
+            	PROPAGATE TO TERMINAL 'out';
+                MOVE ref NEXTSIBLING;
+            END WHILE;
+            
+    END;
+END MODULE;
+                                                 
