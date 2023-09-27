@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0" xmlns:map="default">
+    <input path="/mappingdatabase.xsd" var="var"/>
+    <input path="jar:file://!com/ibm/msl/mapping/rdb/xsds/dbreturn.xsd" var="var1"/>
+    <output path="db:table(/xe.dbm,xe,SYSTEM,MAPPING)" var="MAPPING1"/>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="deleteData_Mapping">
+        <input path="$var/mb:msg(employee,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
+        <output path="$MAPPING1/db:delete(fn:false(),db:where('SYSTEM.MAPPING.NAME =  ?','?'=$MessageAssembly/employee/name))" var="dbdelete1"/>
+        <transaction>
+            <delete ref="dbdelete1">
+                <input path="$MessageAssembly/." var="MessageAssembly1"/>
+                <output path="$dbdelete1/."/>
+            </delete>
+            <return>
+                <input path="$var1/DBDeleteReturn"/>
+            </return>
+        </transaction>
+    </mappingDeclaration>
+</mappingRoot>

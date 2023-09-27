@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0" xmlns:map="default">
+    <input path="/mappingdatabase.xsd" var="var"/>
+    <input path="jar:file://!com/ibm/msl/mapping/rdb/xsds/dbreturn.xsd" var="var1"/>
+    <output path="db:table(/xe.dbm,xe,SYSTEM,MAPPING)" var="MAPPING"/>
+    <namespaces>
+        <namespace kind="extension" prefix="fn" uri="http://www.w3.org/2005/xpath-functions"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="updateData_Mapping">
+        <input path="$var/mb:msg(employee,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
+        <output path="$MAPPING/db:update(fn:false(),fn:true(),db:where('SYSTEM.MAPPING.ID =  ?','?'=$MessageAssembly/employee/id),NAME,ID)" var="dbupdate"/>
+        <transaction>
+            <update ref="dbupdate">
+                <input path="$MessageAssembly/employee" var="employee"/>
+                <output path="$dbupdate/."/>
+                <move>
+                    <input path="$employee/name"/>
+                    <output path="NAME"/>
+                </move>
+                <move>
+                    <input path="$employee/id"/>
+                    <output path="ID"/>
+                </move>
+            </update>
+            <return>
+                <input path="$var1/DBUpdateReturn"/>
+            </return>
+        </transaction>
+    </mappingDeclaration>
+</mappingRoot>

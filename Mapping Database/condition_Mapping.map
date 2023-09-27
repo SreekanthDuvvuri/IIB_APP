@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0" xmlns:map="default">
+    <inlinedXMLSchema><![CDATA[<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+    <xsd:element name="emp" nillable="true"> 
+    <xsd:complexType> 
+      <xsd:sequence> 
+        <xsd:element name="name" nillable="true" type="xsd:string"/> 
+        <xsd:element name="id" nillable="true" type="xsd:string"/> 
+      </xsd:sequence> 
+    </xsd:complexType> 
+  </xsd:element> 
+</xsd:schema>]]></inlinedXMLSchema>
+    <input path="/mappingdatabase.xsd" var="var4"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var3"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var2"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="out" uri="http://xe/system"/>
+        <namespace kind="extension" prefix="fn" uri="http://www.w3.org/2005/xpath-functions"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="condition_Mapping">
+        <input path="$var4/mb:msg(employee,assembly,XMLNSC,Properties)" var="MessageAssembly"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var2/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly5">
+            <cast castType="userDefined" path="$MessageAssembly5/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var2"/>
+            <cast castType="userDefined" path="$MessageAssembly5/JSON/spath('Data',2)/any" qualifier="emp" ref="var3"/>
+        </output>
+        <move>
+            <input path="$MessageAssembly/Properties" var="Properties1"/>
+            <output path="$MessageAssembly5/Properties"/>
+        </move>
+        <local>
+            <input path="$MessageAssembly/employee" var="employee2"/>
+            <output path="$MessageAssembly5/JSON/spath('Data',2)/emp"/>
+            <function ref="concat">
+                <input path="$employee2/id" var="id2"/>
+                <input path="$employee2/name" var="name1"/>
+                <output path="name"/>
+                <param name="input" value="$id2"/>
+            </function>
+        </local>
+    </mappingDeclaration>
+</mappingRoot>

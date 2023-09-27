@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0" xmlns:map="default">
+    <input path="/mappingdatabase.xsd" var="var"/>
+    <input path="jar:file://!com/ibm/msl/mapping/rdb/xsds/dbreturn.xsd" var="var3"/>
+    <output path="db:table(/xe.dbm,xe,SYSTEM,MAPPING)" var="MAPPING1"/>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="mapping_Database_Mapping">
+        <input path="$var/mb:msg(employee,assembly,XMLNSC,Properties)"/>
+        <output path="$MAPPING1/db:insert(fn:true(),NAME,ID)" var="dbinsert1"/>
+        <transaction>
+            <insert ref="dbinsert1">
+                <input path="employee"/>
+                <output path="$dbinsert1/."/>
+                <move>
+                    <input path="name"/>
+                    <output path="NAME"/>
+                </move>
+                <move>
+                    <input path="id"/>
+                    <output path="ID"/>
+                </move>
+            </insert>
+            <return>
+                <input path="$var3/DBInsertReturn"/>
+            </return>
+        </transaction>
+    </mappingDeclaration>
+</mappingRoot>
