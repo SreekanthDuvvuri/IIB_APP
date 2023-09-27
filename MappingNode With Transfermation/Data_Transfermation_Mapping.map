@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0" xmlns:map="default">
+    <inlinedXMLSchema><![CDATA[<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+    <xsd:element name="Employee" nillable="true"> 
+    <xsd:complexType> 
+      <xsd:sequence> 
+        <xsd:element name="ename" nillable="true" type="xsd:string"/> 
+        <xsd:element name="eid" nillable="true" type="xsd:string"/> 
+        <xsd:element name="technology" nillable="true" type="xsd:string"/> 
+      </xsd:sequence> 
+    </xsd:complexType> 
+  </xsd:element> 
+</xsd:schema>]]></inlinedXMLSchema>
+    <input path="/emp.xsd" var="var2"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var1"/>
+    <output path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <namespaces>
+        <namespace kind="supplement" prefix="out" uri="http://www.ibm.com/iib/msl/json"/>
+    </namespaces>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="Data_Transfermation_Mapping">
+        <input path="$var2/mb:msg(employee,assembly,XMLNSC,Properties)" var="ComIbmMessageAssembly_employee"/>
+        <output namespace="http://www.ibm.com/iib/msl/json" path="$var/mb:msg(JSON,assembly,JSON,Properties)" var="ComIbmMessageAssembly_JSON">
+            <cast castType="userDefined" path="$ComIbmMessageAssembly_JSON/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var"/>
+            <cast castType="userDefined" path="$ComIbmMessageAssembly_JSON/JSON/spath('Data',2)/any" qualifier="Employee" ref="var1"/>
+        </output>
+        <move>
+            <input path="$ComIbmMessageAssembly_employee/Properties"/>
+            <output path="$ComIbmMessageAssembly_JSON/Properties"/>
+        </move>
+        <local>
+            <input path="$ComIbmMessageAssembly_employee/employee"/>
+            <output path="$ComIbmMessageAssembly_JSON/JSON/spath('Data',2)/Employee"/>
+            <move>
+                <input path="name"/>
+                <output path="ename"/>
+            </move>
+            <move>
+                <input path="id"/>
+                <output path="eid"/>
+            </move>
+            <move>
+                <input path="technology"/>
+                <output path="technology"/>
+            </move>
+        </local>
+    </mappingDeclaration>
+</mappingRoot>
