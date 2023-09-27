@@ -1,0 +1,35 @@
+CREATE COMPUTE MODULE UpdateData_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER;
+		DECLARE J INTEGER;
+		SET I = 1;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I <= J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE updateData REFERENCE TO InputRoot.XMLNSC.demo;
+		DECLARE d CHARACTER;
+		DECLARE f CHARACTER;
+		
+		SET d = updateData.name;
+		SET f = updateData.id;
+		
+--		UPDATE Database.employee843 AS emp SET name = d WHERE emp.id = f;
+--		
+--		SET OutputRoot.JSON.Data.data1 = 'Updated successfully';
+		DELETE FROM employee843 AS emp WHERE emp.id=f;
+		SET OutputRoot.JSON.Data.data1='deleted successfully';
+		
+	END;
+END MODULE;
