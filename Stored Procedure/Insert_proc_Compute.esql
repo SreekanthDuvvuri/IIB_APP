@@ -1,0 +1,44 @@
+
+
+CREATE COMPUTE MODULE Insert_proc_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+			 
+DECLARE mapRef REFERENCE TO InputRoot.XMLNSC.emp;
+
+
+     DECLARE p_name,p_id CHARACTER;
+     SET p_name=mapRef.name;
+     SET p_id=mapRef.id;
+         
+     SET OutputRoot.JSON.Data.emp.name=p_name;
+     SET OutputRoot.JSON.Data.emp.id=p_id;
+         
+ 	CALL mapping_PRC(p_name,p_id);
+	END;
+	END MODULE;
+	
+	CREATE PROCEDURE mapping_PRC (IN p_name CHARACTER,IN p_id CHARACTER )
+	LANGUAGE DATABASE
+	EXTERNAL NAME "mapping_prc";
+		
+		
+		
+

@@ -1,0 +1,61 @@
+
+
+
+
+
+
+CREATE COMPUTE MODULE fetch_proc_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+	END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+
+
+		DECLARE ref REFERENCE TO InputRoot.XMLNSC.emp;
+		DECLARE f_name,f_id CHARACTER;
+
+		SET f_name=ref.name;
+		SET f_id=ref.id;
+			
+		SET OutputRoot.JSON.Data.emp.name=f_name;
+		SET OutputRoot.JSON.Data.emp.id=f_id;
+		
+		
+	--   fetch data	
+		CALL GETDETAILS(f_id,Environment.variables.getemp[]);
+		SET OutputRoot.JSON.Data.emp.FETCH = Environment.variables;
+		
+	--	Update
+	--	CALL update(f_name,f_id);
+	END;
+END MODULE;
+-- Update
+
+--CREATE PROCEDURE update (IN f_name CHARACTER,IN f_id CHARACTER )
+--LANGUAGE DATABASE
+--EXTERNAL NAME update_procedure; 
+
+
+--Fetch data
+
+CREATE PROCEDURE GETDETAILS (IN id1 CHARACTER )
+LANGUAGE DATABASE
+DYNAMIC RESULT SETS 1
+EXTERNAL NAME GETDETAILS;
+
+
